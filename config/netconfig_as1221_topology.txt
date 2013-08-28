@@ -1,0 +1,91 @@
+Tg Tg-eth0:S1-eth3 Tg-eth1:S2-eth21 Tg-eth2:S3-eth3 Tg-eth3:S4-eth12 Tg-eth4:S5-eth9 Tg-eth5:S6-eth3 Tg-eth6:S7-eth5 Tg-eth7:S8-eth3 Tg-eth8:S9-eth3 Tg-eth9:S10-eth3 Tg-eth10:S11-eth3 Tg-eth11:S12-eth3 Tg-eth12:S13-eth3 Tg-eth13:S14-eth3 Tg-eth14:S15-eth3 Tg-eth15:S16-eth10 Tg-eth16:S17-eth3 Tg-eth17:S18-eth3 Tg-eth18:S19-eth3 Tg-eth19:S20-eth3 Tg-eth20:S21-eth3 Tg-eth21:S22-eth4 Tg-eth22:S23-eth3 Tg-eth23:S24-eth3 Tg-eth24:S25-eth3 Tg-eth25:S26-eth3 Tg-eth26:S27-eth3 Tg-eth27:S28-eth3 Tg-eth28:S29-eth3 Tg-eth29:S30-eth3 Tg-eth30:S31-eth5 Tg-eth31:S32-eth3 Tg-eth32:S33-eth3 Tg-eth33:S34-eth3 Tg-eth34:S35-eth3 Tg-eth35:S36-eth3 Tg-eth36:S37-eth3 Tg-eth37:S38-eth3 Tg-eth38:S39-eth3 Tg-eth39:S40-eth3 Tg-eth40:S41-eth3 Tg-eth41:S42-eth3 Tg-eth42:S43-eth3 Tg-eth43:S44-eth3
+M45 M45-eth0:S2-eth19
+M1 M1-eth0:S1-eth2
+M2 M2-eth0:S2-eth20
+M3 M3-eth0:S3-eth2
+M4 M4-eth0:S4-eth11
+M5 M5-eth0:S5-eth8
+M6 M6-eth0:S6-eth2
+M7 M7-eth0:S7-eth4
+M8 M8-eth0:S8-eth2
+M9 M9-eth0:S9-eth2
+M10 M10-eth0:S10-eth2
+M11 M11-eth0:S11-eth2
+M12 M12-eth0:S12-eth2
+M13 M13-eth0:S13-eth2
+M14 M14-eth0:S14-eth2
+M15 M15-eth0:S15-eth2
+M16 M16-eth0:S16-eth9
+M17 M17-eth0:S17-eth2
+M18 M18-eth0:S18-eth2
+M19 M19-eth0:S19-eth2
+M20 M20-eth0:S20-eth2
+M21 M21-eth0:S21-eth2
+M22 M22-eth0:S22-eth3
+M23 M23-eth0:S23-eth2
+M24 M24-eth0:S24-eth2
+M25 M25-eth0:S25-eth2
+M26 M26-eth0:S26-eth2
+M27 M27-eth0:S27-eth2
+M28 M28-eth0:S28-eth2
+M29 M29-eth0:S29-eth2
+M30 M30-eth0:S30-eth2
+M31 M31-eth0:S31-eth4
+M32 M32-eth0:S32-eth2
+M33 M33-eth0:S33-eth2
+M34 M34-eth0:S34-eth2
+M35 M35-eth0:S35-eth2
+M36 M36-eth0:S36-eth2
+M37 M37-eth0:S37-eth2
+M38 M38-eth0:S38-eth2
+M39 M39-eth0:S39-eth2
+M40 M40-eth0:S40-eth2
+M41 M41-eth0:S41-eth2
+M42 M42-eth0:S42-eth2
+M43 M43-eth0:S43-eth2
+M44 M44-eth0:S44-eth2
+S1 lo:  S1-eth1:S2-eth1 S1-eth2:M1-eth0 S1-eth3:Tg-eth0
+S2 lo:  S2-eth1:S1-eth1 S2-eth2:S4-eth1 S2-eth3:S12-eth1 S2-eth4:S13-eth1 S2-eth5:S14-eth1 S2-eth6:S16-eth1 S2-eth7:S17-eth1 S2-eth8:S18-eth1 S2-eth9:S20-eth1 S2-eth10:S21-eth1 S2-eth11:S22-eth1 S2-eth12:S23-eth1 S2-eth13:S24-eth1 S2-eth14:S25-eth1 S2-eth15:S26-eth1 S2-eth16:S27-eth1 S2-eth17:S28-eth1 S2-eth18:S29-eth1 S2-eth19:M45-eth0 S2-eth20:M2-eth0 S2-eth21:Tg-eth1
+S4 lo:  S4-eth1:S2-eth2 S4-eth2:S3-eth1 S4-eth3:S32-eth1 S4-eth4:S33-eth1 S4-eth5:S5-eth1 S4-eth6:S41-eth1 S4-eth7:S42-eth1 S4-eth8:S34-eth1 S4-eth9:S22-eth2 S4-eth10:S31-eth1 S4-eth11:M4-eth0 S4-eth12:Tg-eth3
+S12 lo:  S12-eth1:S2-eth3 S12-eth2:M12-eth0 S12-eth3:Tg-eth11
+S13 lo:  S13-eth1:S2-eth4 S13-eth2:M13-eth0 S13-eth3:Tg-eth12
+S14 lo:  S14-eth1:S2-eth5 S14-eth2:M14-eth0 S14-eth3:Tg-eth13
+S16 lo:  S16-eth1:S2-eth6 S16-eth2:S15-eth1 S16-eth3:S35-eth1 S16-eth4:S36-eth1 S16-eth5:S37-eth1 S16-eth6:S38-eth1 S16-eth7:S39-eth1 S16-eth8:S19-eth1 S16-eth9:M16-eth0 S16-eth10:Tg-eth15
+S17 lo:  S17-eth1:S2-eth7 S17-eth2:M17-eth0 S17-eth3:Tg-eth16
+S18 lo:  S18-eth1:S2-eth8 S18-eth2:M18-eth0 S18-eth3:Tg-eth17
+S20 lo:  S20-eth1:S2-eth9 S20-eth2:M20-eth0 S20-eth3:Tg-eth19
+S21 lo:  S21-eth1:S2-eth10 S21-eth2:M21-eth0 S21-eth3:Tg-eth20
+S22 lo:  S22-eth1:S2-eth11 S22-eth2:S4-eth9 S22-eth3:M22-eth0 S22-eth4:Tg-eth21
+S23 lo:  S23-eth1:S2-eth12 S23-eth2:M23-eth0 S23-eth3:Tg-eth22
+S24 lo:  S24-eth1:S2-eth13 S24-eth2:M24-eth0 S24-eth3:Tg-eth23
+S25 lo:  S25-eth1:S2-eth14 S25-eth2:M25-eth0 S25-eth3:Tg-eth24
+S26 lo:  S26-eth1:S2-eth15 S26-eth2:M26-eth0 S26-eth3:Tg-eth25
+S27 lo:  S27-eth1:S2-eth16 S27-eth2:M27-eth0 S27-eth3:Tg-eth26
+S28 lo:  S28-eth1:S2-eth17 S28-eth2:M28-eth0 S28-eth3:Tg-eth27
+S29 lo:  S29-eth1:S2-eth18 S29-eth2:M29-eth0 S29-eth3:Tg-eth28
+S3 lo:  S3-eth1:S4-eth2 S3-eth2:M3-eth0 S3-eth3:Tg-eth2
+S32 lo:  S32-eth1:S4-eth3 S32-eth2:M32-eth0 S32-eth3:Tg-eth31
+S33 lo:  S33-eth1:S4-eth4 S33-eth2:M33-eth0 S33-eth3:Tg-eth32
+S5 lo:  S5-eth1:S4-eth5 S5-eth2:S6-eth1 S5-eth3:S7-eth1 S5-eth4:S8-eth1 S5-eth5:S9-eth1 S5-eth6:S10-eth1 S5-eth7:S11-eth1 S5-eth8:M5-eth0 S5-eth9:Tg-eth4
+S41 lo:  S41-eth1:S4-eth6 S41-eth2:M41-eth0 S41-eth3:Tg-eth40
+S42 lo:  S42-eth1:S4-eth7 S42-eth2:M42-eth0 S42-eth3:Tg-eth41
+S34 lo:  S34-eth1:S4-eth8 S34-eth2:M34-eth0 S34-eth3:Tg-eth33
+S31 lo:  S31-eth1:S4-eth10 S31-eth2:S30-eth1 S31-eth3:S40-eth1 S31-eth4:M31-eth0 S31-eth5:Tg-eth30
+S6 lo:  S6-eth1:S5-eth2 S6-eth2:M6-eth0 S6-eth3:Tg-eth5
+S7 lo:  S7-eth1:S5-eth3 S7-eth2:S43-eth1 S7-eth3:S44-eth1 S7-eth4:M7-eth0 S7-eth5:Tg-eth6
+S8 lo:  S8-eth1:S5-eth4 S8-eth2:M8-eth0 S8-eth3:Tg-eth7
+S9 lo:  S9-eth1:S5-eth5 S9-eth2:M9-eth0 S9-eth3:Tg-eth8
+S10 lo:  S10-eth1:S5-eth6 S10-eth2:M10-eth0 S10-eth3:Tg-eth9
+S11 lo:  S11-eth1:S5-eth7 S11-eth2:M11-eth0 S11-eth3:Tg-eth10
+S43 lo:  S43-eth1:S7-eth2 S43-eth2:M43-eth0 S43-eth3:Tg-eth42
+S44 lo:  S44-eth1:S7-eth3 S44-eth2:M44-eth0 S44-eth3:Tg-eth43
+S15 lo:  S15-eth1:S16-eth2 S15-eth2:M15-eth0 S15-eth3:Tg-eth14
+S35 lo:  S35-eth1:S16-eth3 S35-eth2:M35-eth0 S35-eth3:Tg-eth34
+S36 lo:  S36-eth1:S16-eth4 S36-eth2:M36-eth0 S36-eth3:Tg-eth35
+S37 lo:  S37-eth1:S16-eth5 S37-eth2:M37-eth0 S37-eth3:Tg-eth36
+S38 lo:  S38-eth1:S16-eth6 S38-eth2:M38-eth0 S38-eth3:Tg-eth37
+S39 lo:  S39-eth1:S16-eth7 S39-eth2:M39-eth0 S39-eth3:Tg-eth38
+S19 lo:  S19-eth1:S16-eth8 S19-eth2:M19-eth0 S19-eth3:Tg-eth18
+S30 lo:  S30-eth1:S31-eth2 S30-eth2:M30-eth0 S30-eth3:Tg-eth29
+S40 lo:  S40-eth1:S31-eth3 S40-eth2:M40-eth0 S40-eth3:Tg-eth39
+c1

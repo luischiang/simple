@@ -1,0 +1,15 @@
+S1        Link encap:Ethernet  HWaddr 00:00:12:00:01:01  
+S2        Link encap:Ethernet  HWaddr 00:00:12:00:02:01  
+S3        Link encap:Ethernet  HWaddr 00:00:12:00:03:01  
+S1-eth1   Link encap:Ethernet  HWaddr 00:00:12:00:01:01  
+S1-eth2   Link encap:Ethernet  HWaddr 00:00:12:00:01:02  
+S1-eth3   Link encap:Ethernet  HWaddr 00:00:12:00:01:03  
+S2-eth1   Link encap:Ethernet  HWaddr 00:00:12:00:02:01  
+S2-eth2   Link encap:Ethernet  HWaddr 00:00:12:00:02:02  
+S2-eth3   Link encap:Ethernet  HWaddr 00:00:12:00:02:03  
+S2-eth4   Link encap:Ethernet  HWaddr 00:00:12:00:02:04  
+S3-eth1   Link encap:Ethernet  HWaddr 00:00:12:00:03:01  
+S3-eth2   Link encap:Ethernet  HWaddr 00:00:12:00:03:02  
+S3-eth3   Link encap:Ethernet  HWaddr 00:00:12:00:03:03  
+S3-eth4   Link encap:Ethernet  HWaddr 00:00:12:00:03:04  
+eth0      Link encap:Ethernet  HWaddr 00:0c:29:a2:24:9d  

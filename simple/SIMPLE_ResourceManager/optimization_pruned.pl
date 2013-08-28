@@ -3,10 +3,15 @@
 use strict;
 use Time::HiRes;
 
-my $HOME = "/home/zaqazi/middleboxsdn/optimization/";
-require "$HOME/inputfileparse.pl";
-require "$HOME/shortestpathutils.pl";
-require "$HOME/policyutils.pl";
+#LC: 20/April/2013 - files located at the local folder
+#my $HOME = "/home/zaqazi/middleboxsdn/optimization/";
+#require "$HOME/inputfileparse.pl";
+#require "$HOME/shortestpathutils.pl";
+#require "$HOME/policyutils.pl";
+
+require "inputfileparse.pl";
+require "shortestpathutils.pl";
+require "policyutils.pl";
 
 if ($#ARGV < 2)
 {

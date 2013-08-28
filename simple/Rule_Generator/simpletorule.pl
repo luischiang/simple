@@ -5,9 +5,10 @@
 
 use strict;
 use POSIX;
-require "/home/openflow/advpro/simple/SIMPLE_ResourceManager/inputfileparse.pl";
-require "/home/openflow/advpro/simple/SIMPLE_ResourceManager/shortestpathutils.pl";
-require "/home/openflow/advpro/simple/SIMPLE_ResourceManager/policyutils.pl";
+
+require "inputfileparse.pl";
+require "shortestpathutils.pl";
+require "policyutils.pl";
 
 if ($#ARGV < 4)
 {

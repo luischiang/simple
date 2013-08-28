@@ -104,13 +104,39 @@ def addTrafficGenerator(net, name):
 def addSwitch(net, name):
 	return net.addSwitch(name)
 
-def TopologyHotnet(networkName, ruletype, edgefile, configfile):
+def dumpNodeConnections( file, nodes ):
+    "Dump connections to/from nodes."
+
+    def dumpConnections( file, node ):
+        "Helper function: dump connections to node"
+        for intf in node.intfList():
+            file.write( ' %s:' % intf )
+            if intf.link:
+                intfs = [ intf.link.intf1, intf.link.intf2 ]
+                intfs.remove( intf )
+                file.write( str(intfs[ 0 ]) )
+            else:
+                file.write( ' ' )
+
+    for node in nodes:
+        file.write( node.name )
+        dumpConnections( file, node )
+        file.write( '\n' )
+
+def dumpNetConnections( file,  net ):
+    "Dump connections in network"
+    nodes = net.controllers + net.switches + net.hosts
+    dumpNodeConnections( file, nodes )
+	
+def TopologyHotnet(networkName, ruletype, edgefile):
 	"Create a network with multiple controllers."
 	 
 	net = Mininet( controller=RemoteController, switch=Switch, autoSetMacs = True)
 	print "*** Creating controllers"
 	c1 = net.addController('c1', port=6633, ip="127.0.0.1")
-
+	
+	wdir = os.getcwd()
+	
 	swobj_dict = {}
 	hobj_dict = {}
 	mbobj_dict = {}
@@ -182,86 +208,115 @@ def TopologyHotnet(networkName, ruletype, edgefile, configfile):
 	#os.system("rm /tmp/00*")
 	#os.system("tcpdump -i lo -w /home/luis/pcap/%s-%s-controller.pcap & > /home/luis/pcap/%s-%s-tcpdumpOut-controller.txt" % (networkName, ruletype, networkName, ruletype) )
 	 
-	#time.sleep(2)
+	time.sleep(1)
 	 
 	for key in swobj_dict.keys():
 		sw = swobj_dict[key]
-		#time.sleep(0.5)
+		time.sleep(0.5)
 		sw.start([c1])
 
 	print "*** Sleep for reaching the controller (10 seconds)"
-	#time.sleep(10)
+	time.sleep(10)
 	 
-	print "*** View network"
-	 
+	print "*** exporting config files"
+	
+	path = edgefile.split("/")[0]
+	edgename = edgefile.split("/")[1]
+	
+	f = open("config/hosts_" + edgename, 'w')
+	
 	for host_name in tf.host_list:
 		ho = hobj_dict[host_name]
 		for intfname in ho.intfList():
-			print '%s %s %s %s' % (ho.name, ho.IP(intfname), ho.MAC(intfname), intfname)
+			print >>f, '%s %s %s %s' % (ho.name, ho.IP(intfname), ho.MAC(intfname), intfname)
 	
 	i = 1;
 	for intfname in Tg.intfList():
-			print 'N%d %s/16 %s' % (i, Tg.IP(intfname), intfname)
+			print >>f, 'N%d %s/16 %s' % (i, Tg.IP(intfname), intfname)
 			i += 1
 			
 	for mb_name in tf.mb_list:
 		mb = mbobj_dict[mb_name]
 		for intfname in mb.intfList():
-			print '%s %s %s %s' % (mb.name, mb.IP(intfname), mb.MAC(intfname), intfname)
+			print >>f, '%s %s %s %s' % (mb.name, mb.IP(intfname), mb.MAC(intfname), intfname)
 	
-	print "*** configuring hosts"
+	f.close()
 	
-	configlines = open(configfile, 'r')
+	f = open("config/switches_" + edgename, 'w')
+	for sw_name in tf.sw_list:
+		sw = swobj_dict[sw_name]
+		print >>f, '%s,%s-%s-%s-%s-%s-%s' % (sw.name, sw.dpid[4:6],sw.dpid[6:8],sw.dpid[8:10],sw.dpid[10:12],sw.dpid[12:14],sw.dpid[14:16] )
+	f.close()
 	
-	for host_name in tf.host_list:
-		ho = hobj_dict[host_name]
-		for x in range(1,5):
-			linecmd = configlines.readline()
-			ho.cmd(linecmd.strip(' \t\n\r'))
+	f = open("config/netconfig_" + edgename, 'w') 
+	dumpNodeConnections(f, net) 
+	f.close()
+	
+	os.system("ifconfig -a | grep Ethernet > " + wdir + "/config/ifconfig_" + edgename)
+	
+	###########################################################################################
+	#LC: No neeeded when we use the Tg node
+	#print "*** configuring hosts"
+	
+	#configlines = open(configfile, 'r')
+	
+	#for host_name in tf.host_list:
+	#	ho = hobj_dict[host_name]
+	#	for x in range(1,5):
+	#		linecmd = configlines.readline()
+	#		ho.cmd(linecmd.strip(' \t\n\r'))
 		#ho.cmd("iperf -s -u -p 5001 > /home/luis/finalmbox/pcap/%s/%s-iperfServer5001-%s.txt &" % (networkName, ho.name, ruletype) )
 		#ho.cmd("iperf -s -u -p 5002 > /home/luis/finalmbox/pcap/%s/%s-iperfServer5002-%s.txt &" % (networkName, ho.name, ruletype) )
 		#ho.cmd("tcpdump -i %s-eth0 -w /home/luis/finalmbox/pcap/%s/%s-%s.pcap &" % (ho.name, networkName, ho.name, ruletype) )
-		
-	configlines.close()
 	
-	print "*** configuring middleboxes"
-	 
+	#configlines.close()
+	
+	print "*** configuring middleboxes (click)"
+	
+	clickcf = "AddressInfo(my_self 0.0.0.0/32 MB-MAC);" + "\r\n"
+	clickcf += "in_device	::  FromDevice(\"MB-ETH\");" + "\r\n"
+	clickcf += "to_device	::  ToDevice(\"MB-ETH\");" + "\r\n"
+	clickcf += "in_device -> HostEtherFilter(my_self, DROP_OTHER true, DROP_OWN false) -> EtherMirror() -> Queue(10) -> to_device;" + "\r\n"
+	
 	for mb_name in tf.mb_list:
 		mb = mbobj_dict[mb_name]
-		mb.cmd("click /home/openflow/advpro/clickfiles/%s/%s-eth0.click &" % (networkName, mb.name))
-		#mb.cmd("tcpdump -i %s-eth0 -w /home/luis/pcap/%s/%s-%s.pcap &" % (mb.name, networkName, mb.name, ruletype) )
+		for intfname in mb.intfList():
+			#export to file
+			stMb = clickcf.replace("MB-MAC", mb.MAC(intfname))
+			stMb = stMb.replace("MB-ETH", '%s' % intfname)
+			fiMb = open('/tmp/%s.click' % intfname, 'w')
+			fiMb.write(stMb)
+			fiMb.close()
+			#execute click per each interface
+			mb.cmd("click /tmp/%s.click &" % intfname)
+			mb.cmd("tcpdump -i %s -w %s/pcap/%s-%s-%s.pcap &" % (intfname, wdir, networkName, ruletype, intfname))
 	
-	# hotnet2 250
-	# abilene 535
-	# geant 149
-	# enterprise 525
-	# print "*** Begin Collecting Link usage"
-	#os.system("sar -n DEV 1 250 > /home/luis/finalmbox/performance/%s/%s.txt &" % (networkName,ruletype ))
-
-	print "*** running iperf clients"
+	#print "*** running iperf clients"
 	 
-	for host_name in tf.host_list:
-		ho = hobj_dict[host_name]
+	#for host_name in tf.host_list:
+	#	ho = hobj_dict[host_name]
 		#ho.cmd("/home/luis/finalmbox/iperf/%s/%s.sh &" % (networkName, ho.name) )
 		#net.terms += makeTerm(ho)
 	
-	#os.system("sleep 255")
+	print "*** running traffic generator"
 	
-	#print "*** Running CLI"
-	CLI( net )
-	 
+	#Tg.cmd("sar -n DEV 1 250 > %s/pcap/%s/Tg-performance.txt &" % (wdir, networkName))	
+	#Tg.cmd("%s/gtool/startTg.sh" % wdir)
+	
+	##########
+	CLI( net ) 
+	
 	print "*** Stopping network"
-	#cleanUpScreens()
 	net.stop()
 	
-	os.system("/home/openflow/advpro/terminate_experiments.sh")
+	os.system("./terminate_experiments.sh")
 
 if __name__ == '__main__':
 	setLogLevel( 'info' )  # for CLI output
 	
-	if len(sys.argv) != 5:
-		print "Usage: ./ThisProgram <NetworkName> <RuleSet Type> <Topology_xxx> <config_xxx.txt>"
-		print "ex: abilene optimal Topology_abilene config_abilene.txt" 
+	if len(sys.argv) != 4:
+		print "Usage: ./ThisProgram <NetworkName> <RuleSet Type> <Topology_xxx>"
+		print "ex: abilene optimal topology/abilene_topology.txt" 
 		sys.exit(1)
 
-	TopologyHotnet(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
+	TopologyHotnet(sys.argv[1], sys.argv[2], sys.argv[3])
