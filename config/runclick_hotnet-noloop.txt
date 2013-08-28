@@ -1,0 +1,4 @@
+M1 /usr/local/bin/click /home/openflow/clickfiles/hotnet-noloop/M1-eth0.click &
+M2 /usr/local/bin/click /home/openflow/clickfiles/hotnet-noloop/M2-eth0.click &
+M3 /usr/local/bin/click /home/openflow/clickfiles/hotnet-noloop/M3-eth0.click &
+M4 /usr/local/bin/click /home/openflow/clickfiles/hotnet-noloop/M4-eth0.click &

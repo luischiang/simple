@@ -1,0 +1,336 @@
+H1 ifconfig H1-eth0 down
+H1 ifconfig H1-eth0 11.0.1.2 netmask 255.255.255.0 up
+H1 route add default gw 11.0.1.1
+H1 arp -s 11.0.1.1 00:00:12:00:01:02
+H2 ifconfig H2-eth0 down
+H2 ifconfig H2-eth0 11.0.2.2 netmask 255.255.255.0 up
+H2 route add default gw 11.0.2.1
+H2 arp -s 11.0.2.1 00:00:12:00:02:19
+H3 ifconfig H3-eth0 down
+H3 ifconfig H3-eth0 11.0.3.2 netmask 255.255.255.0 up
+H3 route add default gw 11.0.3.1
+H3 arp -s 11.0.3.1 00:00:12:00:03:02
+H4 ifconfig H4-eth0 down
+H4 ifconfig H4-eth0 11.0.4.2 netmask 255.255.255.0 up
+H4 route add default gw 11.0.4.1
+H4 arp -s 11.0.4.1 00:00:12:00:04:11
+H5 ifconfig H5-eth0 down
+H5 ifconfig H5-eth0 11.0.5.2 netmask 255.255.255.0 up
+H5 route add default gw 11.0.5.1
+H5 arp -s 11.0.5.1 00:00:12:00:05:08
+H6 ifconfig H6-eth0 down
+H6 ifconfig H6-eth0 11.0.6.2 netmask 255.255.255.0 up
+H6 route add default gw 11.0.6.1
+H6 arp -s 11.0.6.1 00:00:12:00:06:02
+H7 ifconfig H7-eth0 down
+H7 ifconfig H7-eth0 11.0.7.2 netmask 255.255.255.0 up
+H7 route add default gw 11.0.7.1
+H7 arp -s 11.0.7.1 00:00:12:00:07:04
+H8 ifconfig H8-eth0 down
+H8 ifconfig H8-eth0 11.0.8.2 netmask 255.255.255.0 up
+H8 route add default gw 11.0.8.1
+H8 arp -s 11.0.8.1 00:00:12:00:08:02
+H9 ifconfig H9-eth0 down
+H9 ifconfig H9-eth0 11.0.9.2 netmask 255.255.255.0 up
+H9 route add default gw 11.0.9.1
+H9 arp -s 11.0.9.1 00:00:12:00:09:02
+H10 ifconfig H10-eth0 down
+H10 ifconfig H10-eth0 11.0.10.2 netmask 255.255.255.0 up
+H10 route add default gw 11.0.10.1
+H10 arp -s 11.0.10.1 00:00:12:00:10:02
+H11 ifconfig H11-eth0 down
+H11 ifconfig H11-eth0 11.0.11.2 netmask 255.255.255.0 up
+H11 route add default gw 11.0.11.1
+H11 arp -s 11.0.11.1 00:00:12:00:11:02
+H12 ifconfig H12-eth0 down
+H12 ifconfig H12-eth0 11.0.12.2 netmask 255.255.255.0 up
+H12 route add default gw 11.0.12.1
+H12 arp -s 11.0.12.1 00:00:12:00:12:02
+H13 ifconfig H13-eth0 down
+H13 ifconfig H13-eth0 11.0.13.2 netmask 255.255.255.0 up
+H13 route add default gw 11.0.13.1
+H13 arp -s 11.0.13.1 00:00:12:00:13:02
+H14 ifconfig H14-eth0 down
+H14 ifconfig H14-eth0 11.0.14.2 netmask 255.255.255.0 up
+H14 route add default gw 11.0.14.1
+H14 arp -s 11.0.14.1 00:00:12:00:14:02
+H15 ifconfig H15-eth0 down
+H15 ifconfig H15-eth0 11.0.15.2 netmask 255.255.255.0 up
+H15 route add default gw 11.0.15.1
+H15 arp -s 11.0.15.1 00:00:12:00:15:02
+H16 ifconfig H16-eth0 down
+H16 ifconfig H16-eth0 11.0.16.2 netmask 255.255.255.0 up
+H16 route add default gw 11.0.16.1
+H16 arp -s 11.0.16.1 00:00:12:00:16:09
+H17 ifconfig H17-eth0 down
+H17 ifconfig H17-eth0 11.0.17.2 netmask 255.255.255.0 up
+H17 route add default gw 11.0.17.1
+H17 arp -s 11.0.17.1 00:00:12:00:17:02
+H18 ifconfig H18-eth0 down
+H18 ifconfig H18-eth0 11.0.18.2 netmask 255.255.255.0 up
+H18 route add default gw 11.0.18.1
+H18 arp -s 11.0.18.1 00:00:12:00:18:02
+H19 ifconfig H19-eth0 down
+H19 ifconfig H19-eth0 11.0.19.2 netmask 255.255.255.0 up
+H19 route add default gw 11.0.19.1
+H19 arp -s 11.0.19.1 00:00:12:00:19:02
+H20 ifconfig H20-eth0 down
+H20 ifconfig H20-eth0 11.0.20.2 netmask 255.255.255.0 up
+H20 route add default gw 11.0.20.1
+H20 arp -s 11.0.20.1 00:00:12:00:20:02
+H21 ifconfig H21-eth0 down
+H21 ifconfig H21-eth0 11.0.21.2 netmask 255.255.255.0 up
+H21 route add default gw 11.0.21.1
+H21 arp -s 11.0.21.1 00:00:12:00:21:02
+H22 ifconfig H22-eth0 down
+H22 ifconfig H22-eth0 11.0.22.2 netmask 255.255.255.0 up
+H22 route add default gw 11.0.22.1
+H22 arp -s 11.0.22.1 00:00:12:00:22:03
+H23 ifconfig H23-eth0 down
+H23 ifconfig H23-eth0 11.0.23.2 netmask 255.255.255.0 up
+H23 route add default gw 11.0.23.1
+H23 arp -s 11.0.23.1 00:00:12:00:23:02
+H24 ifconfig H24-eth0 down
+H24 ifconfig H24-eth0 11.0.24.2 netmask 255.255.255.0 up
+H24 route add default gw 11.0.24.1
+H24 arp -s 11.0.24.1 00:00:12:00:24:02
+H25 ifconfig H25-eth0 down
+H25 ifconfig H25-eth0 11.0.25.2 netmask 255.255.255.0 up
+H25 route add default gw 11.0.25.1
+H25 arp -s 11.0.25.1 00:00:12:00:25:02
+H26 ifconfig H26-eth0 down
+H26 ifconfig H26-eth0 11.0.26.2 netmask 255.255.255.0 up
+H26 route add default gw 11.0.26.1
+H26 arp -s 11.0.26.1 00:00:12:00:26:02
+H27 ifconfig H27-eth0 down
+H27 ifconfig H27-eth0 11.0.27.2 netmask 255.255.255.0 up
+H27 route add default gw 11.0.27.1
+H27 arp -s 11.0.27.1 00:00:12:00:27:02
+H28 ifconfig H28-eth0 down
+H28 ifconfig H28-eth0 11.0.28.2 netmask 255.255.255.0 up
+H28 route add default gw 11.0.28.1
+H28 arp -s 11.0.28.1 00:00:12:00:28:02
+H29 ifconfig H29-eth0 down
+H29 ifconfig H29-eth0 11.0.29.2 netmask 255.255.255.0 up
+H29 route add default gw 11.0.29.1
+H29 arp -s 11.0.29.1 00:00:12:00:29:02
+H30 ifconfig H30-eth0 down
+H30 ifconfig H30-eth0 11.0.30.2 netmask 255.255.255.0 up
+H30 route add default gw 11.0.30.1
+H30 arp -s 11.0.30.1 00:00:12:00:30:02
+H31 ifconfig H31-eth0 down
+H31 ifconfig H31-eth0 11.0.31.2 netmask 255.255.255.0 up
+H31 route add default gw 11.0.31.1
+H31 arp -s 11.0.31.1 00:00:12:00:31:04
+H32 ifconfig H32-eth0 down
+H32 ifconfig H32-eth0 11.0.32.2 netmask 255.255.255.0 up
+H32 route add default gw 11.0.32.1
+H32 arp -s 11.0.32.1 00:00:12:00:32:02
+H33 ifconfig H33-eth0 down
+H33 ifconfig H33-eth0 11.0.33.2 netmask 255.255.255.0 up
+H33 route add default gw 11.0.33.1
+H33 arp -s 11.0.33.1 00:00:12:00:33:02
+H34 ifconfig H34-eth0 down
+H34 ifconfig H34-eth0 11.0.34.2 netmask 255.255.255.0 up
+H34 route add default gw 11.0.34.1
+H34 arp -s 11.0.34.1 00:00:12:00:34:02
+H35 ifconfig H35-eth0 down
+H35 ifconfig H35-eth0 11.0.35.2 netmask 255.255.255.0 up
+H35 route add default gw 11.0.35.1
+H35 arp -s 11.0.35.1 00:00:12:00:35:02
+H36 ifconfig H36-eth0 down
+H36 ifconfig H36-eth0 11.0.36.2 netmask 255.255.255.0 up
+H36 route add default gw 11.0.36.1
+H36 arp -s 11.0.36.1 00:00:12:00:36:02
+H37 ifconfig H37-eth0 down
+H37 ifconfig H37-eth0 11.0.37.2 netmask 255.255.255.0 up
+H37 route add default gw 11.0.37.1
+H37 arp -s 11.0.37.1 00:00:12:00:37:02
+H38 ifconfig H38-eth0 down
+H38 ifconfig H38-eth0 11.0.38.2 netmask 255.255.255.0 up
+H38 route add default gw 11.0.38.1
+H38 arp -s 11.0.38.1 00:00:12:00:38:02
+H39 ifconfig H39-eth0 down
+H39 ifconfig H39-eth0 11.0.39.2 netmask 255.255.255.0 up
+H39 route add default gw 11.0.39.1
+H39 arp -s 11.0.39.1 00:00:12:00:39:02
+H40 ifconfig H40-eth0 down
+H40 ifconfig H40-eth0 11.0.40.2 netmask 255.255.255.0 up
+H40 route add default gw 11.0.40.1
+H40 arp -s 11.0.40.1 00:00:12:00:40:02
+H41 ifconfig H41-eth0 down
+H41 ifconfig H41-eth0 11.0.41.2 netmask 255.255.255.0 up
+H41 route add default gw 11.0.41.1
+H41 arp -s 11.0.41.1 00:00:12:00:41:02
+H42 ifconfig H42-eth0 down
+H42 ifconfig H42-eth0 11.0.42.2 netmask 255.255.255.0 up
+H42 route add default gw 11.0.42.1
+H42 arp -s 11.0.42.1 00:00:12:00:42:02
+H43 ifconfig H43-eth0 down
+H43 ifconfig H43-eth0 11.0.43.2 netmask 255.255.255.0 up
+H43 route add default gw 11.0.43.1
+H43 arp -s 11.0.43.1 00:00:12:00:43:02
+H44 ifconfig H44-eth0 down
+H44 ifconfig H44-eth0 11.0.44.2 netmask 255.255.255.0 up
+H44 route add default gw 11.0.44.1
+H44 arp -s 11.0.44.1 00:00:12:00:44:02
+M1 ifconfig M1-eth0 down
+M1 ifconfig M1-eth0 13.0.1.2 netmask 255.255.255.0 up
+M1 route add default gw 13.0.1.1
+M1 arp -s 13.0.1.1 00:00:12:00:16:10
+M2 ifconfig M2-eth0 down
+M2 ifconfig M2-eth0 13.0.2.2 netmask 255.255.255.0 up
+M2 route add default gw 13.0.2.1
+M2 arp -s 13.0.2.1 00:00:12:00:39:03
+M3 ifconfig M3-eth0 down
+M3 ifconfig M3-eth0 13.0.3.2 netmask 255.255.255.0 up
+M3 route add default gw 13.0.3.1
+M3 arp -s 13.0.3.1 00:00:12:00:05:09
+M4 ifconfig M4-eth0 down
+M4 ifconfig M4-eth0 13.0.4.2 netmask 255.255.255.0 up
+M4 route add default gw 13.0.4.1
+M4 arp -s 13.0.4.1 00:00:12:00:19:03
+M5 ifconfig M5-eth0 down
+M5 ifconfig M5-eth0 13.0.5.2 netmask 255.255.255.0 up
+M5 route add default gw 13.0.5.1
+M5 arp -s 13.0.5.1 00:00:12:00:43:03
+M6 ifconfig M6-eth0 down
+M6 ifconfig M6-eth0 13.0.6.2 netmask 255.255.255.0 up
+M6 route add default gw 13.0.6.1
+M6 arp -s 13.0.6.1 00:00:12:00:25:03
+M7 ifconfig M7-eth0 down
+M7 ifconfig M7-eth0 13.0.7.2 netmask 255.255.255.0 up
+M7 route add default gw 13.0.7.1
+M7 arp -s 13.0.7.1 00:00:12:00:12:03
+M8 ifconfig M8-eth0 down
+M8 ifconfig M8-eth0 13.0.8.2 netmask 255.255.255.0 up
+M8 route add default gw 13.0.8.1
+M8 arp -s 13.0.8.1 00:00:12:00:20:03
+M9 ifconfig M9-eth0 down
+M9 ifconfig M9-eth0 13.0.9.2 netmask 255.255.255.0 up
+M9 route add default gw 13.0.9.1
+M9 arp -s 13.0.9.1 00:00:12:00:37:03
+M10 ifconfig M10-eth0 down
+M10 ifconfig M10-eth0 13.0.10.2 netmask 255.255.255.0 up
+M10 route add default gw 13.0.10.1
+M10 arp -s 13.0.10.1 00:00:12:00:09:03
+M11 ifconfig M11-eth0 down
+M11 ifconfig M11-eth0 13.0.11.2 netmask 255.255.255.0 up
+M11 route add default gw 13.0.11.1
+M11 arp -s 13.0.11.1 00:00:12:00:17:03
+M12 ifconfig M12-eth0 down
+M12 ifconfig M12-eth0 13.0.12.2 netmask 255.255.255.0 up
+M12 route add default gw 13.0.12.1
+M12 arp -s 13.0.12.1 00:00:12:00:24:03
+M13 ifconfig M13-eth0 down
+M13 ifconfig M13-eth0 13.0.13.2 netmask 255.255.255.0 up
+M13 route add default gw 13.0.13.1
+M13 arp -s 13.0.13.1 00:00:12:00:41:03
+M14 ifconfig M14-eth0 down
+M14 ifconfig M14-eth0 13.0.14.2 netmask 255.255.255.0 up
+M14 route add default gw 13.0.14.1
+M14 arp -s 13.0.14.1 00:00:12:00:15:03
+M15 ifconfig M15-eth0 down
+M15 ifconfig M15-eth0 13.0.15.2 netmask 255.255.255.0 up
+M15 route add default gw 13.0.15.1
+M15 arp -s 13.0.15.1 00:00:12:00:32:03
+M16 ifconfig M16-eth0 down
+M16 ifconfig M16-eth0 13.0.16.2 netmask 255.255.255.0 up
+M16 route add default gw 13.0.16.1
+M16 arp -s 13.0.16.1 00:00:12:00:31:05
+M17 ifconfig M17-eth0 down
+M17 ifconfig M17-eth0 13.0.17.2 netmask 255.255.255.0 up
+M17 route add default gw 13.0.17.1
+M17 arp -s 13.0.17.1 00:00:12:00:42:03
+M18 ifconfig M18-eth0 down
+M18 ifconfig M18-eth0 13.0.18.2 netmask 255.255.255.0 up
+M18 route add default gw 13.0.18.1
+M18 arp -s 13.0.18.1 00:00:12:00:03:03
+M19 ifconfig M19-eth0 down
+M19 ifconfig M19-eth0 13.0.19.2 netmask 255.255.255.0 up
+M19 route add default gw 13.0.19.1
+M19 arp -s 13.0.19.1 00:00:12:00:44:03
+M20 ifconfig M20-eth0 down
+M20 ifconfig M20-eth0 13.0.20.2 netmask 255.255.255.0 up
+M20 route add default gw 13.0.20.1
+M20 arp -s 13.0.20.1 00:00:12:00:18:03
+M21 ifconfig M21-eth0 down
+M21 ifconfig M21-eth0 13.0.21.2 netmask 255.255.255.0 up
+M21 route add default gw 13.0.21.1
+M21 arp -s 13.0.21.1 00:00:12:00:29:03
+M22 ifconfig M22-eth0 down
+M22 ifconfig M22-eth0 13.0.22.2 netmask 255.255.255.0 up
+M22 route add default gw 13.0.22.1
+M22 arp -s 13.0.22.1 00:00:12:00:38:03
+M23 ifconfig M23-eth0 down
+M23 ifconfig M23-eth0 13.0.23.2 netmask 255.255.255.0 up
+M23 route add default gw 13.0.23.1
+M23 arp -s 13.0.23.1 00:00:12:00:02:20
+M24 ifconfig M24-eth0 down
+M24 ifconfig M24-eth0 13.0.24.2 netmask 255.255.255.0 up
+M24 route add default gw 13.0.24.1
+M24 arp -s 13.0.24.1 00:00:12:00:14:03
+M25 ifconfig M25-eth0 down
+M25 ifconfig M25-eth0 13.0.25.2 netmask 255.255.255.0 up
+M25 route add default gw 13.0.25.1
+M25 arp -s 13.0.25.1 00:00:12:00:36:03
+M26 ifconfig M26-eth0 down
+M26 ifconfig M26-eth0 13.0.26.2 netmask 255.255.255.0 up
+M26 route add default gw 13.0.26.1
+M26 arp -s 13.0.26.1 00:00:12:00:26:03
+M27 ifconfig M27-eth0 down
+M27 ifconfig M27-eth0 13.0.27.2 netmask 255.255.255.0 up
+M27 route add default gw 13.0.27.1
+M27 arp -s 13.0.27.1 00:00:12:00:13:03
+M28 ifconfig M28-eth0 down
+M28 ifconfig M28-eth0 13.0.28.2 netmask 255.255.255.0 up
+M28 route add default gw 13.0.28.1
+M28 arp -s 13.0.28.1 00:00:12:00:30:03
+M29 ifconfig M29-eth0 down
+M29 ifconfig M29-eth0 13.0.29.2 netmask 255.255.255.0 up
+M29 route add default gw 13.0.29.1
+M29 arp -s 13.0.29.1 00:00:12:00:11:03
+M30 ifconfig M30-eth0 down
+M30 ifconfig M30-eth0 13.0.30.2 netmask 255.255.255.0 up
+M30 route add default gw 13.0.30.1
+M30 arp -s 13.0.30.1 00:00:12:00:34:03
+M31 ifconfig M31-eth0 down
+M31 ifconfig M31-eth0 13.0.31.2 netmask 255.255.255.0 up
+M31 route add default gw 13.0.31.1
+M31 arp -s 13.0.31.1 00:00:12:00:22:04
+M32 ifconfig M32-eth0 down
+M32 ifconfig M32-eth0 13.0.32.2 netmask 255.255.255.0 up
+M32 route add default gw 13.0.32.1
+M32 arp -s 13.0.32.1 00:00:12:00:06:03
+M33 ifconfig M33-eth0 down
+M33 ifconfig M33-eth0 13.0.33.2 netmask 255.255.255.0 up
+M33 route add default gw 13.0.33.1
+M33 arp -s 13.0.33.1 00:00:12:00:33:03
+M34 ifconfig M34-eth0 down
+M34 ifconfig M34-eth0 13.0.34.2 netmask 255.255.255.0 up
+M34 route add default gw 13.0.34.1
+M34 arp -s 13.0.34.1 00:00:12:00:35:03
+M35 ifconfig M35-eth0 down
+M35 ifconfig M35-eth0 13.0.35.2 netmask 255.255.255.0 up
+M35 route add default gw 13.0.35.1
+M35 arp -s 13.0.35.1 00:00:12:00:04:12
+M36 ifconfig M36-eth0 down
+M36 ifconfig M36-eth0 13.0.36.2 netmask 255.255.255.0 up
+M36 route add default gw 13.0.36.1
+M36 arp -s 13.0.36.1 00:00:12:00:10:03
+M37 ifconfig M37-eth0 down
+M37 ifconfig M37-eth0 13.0.37.2 netmask 255.255.255.0 up
+M37 route add default gw 13.0.37.1
+M37 arp -s 13.0.37.1 00:00:12:00:40:03
+M38 ifconfig M38-eth0 down
+M38 ifconfig M38-eth0 13.0.38.2 netmask 255.255.255.0 up
+M38 route add default gw 13.0.38.1
+M38 arp -s 13.0.38.1 00:00:12:00:27:03
+M39 ifconfig M39-eth0 down
+M39 ifconfig M39-eth0 13.0.39.2 netmask 255.255.255.0 up
+M39 route add default gw 13.0.39.1
+M39 arp -s 13.0.39.1 00:00:12:00:21:03
+M40 ifconfig M40-eth0 down
+M40 ifconfig M40-eth0 13.0.40.2 netmask 255.255.255.0 up
+M40 route add default gw 13.0.40.1
+M40 arp -s 13.0.40.1 00:00:12:00:01:03

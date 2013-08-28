@@ -1,0 +1,15 @@
+### first node has to of type S*
+NUMSWITCHES=5
+NUMHOSTNODES=1
+NUMMBOXES=4 
+S1 H1 1
+S1 S2 1
+S2 M1 1
+S2 M2 1
+S1 S3 1
+S3 M3 1
+S2 S4 1
+S3 S4 1
+S4 M4 1
+S4 S5 1
+S5 H1 1

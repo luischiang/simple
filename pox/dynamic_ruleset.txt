@@ -1,0 +1,26 @@
+Switch1: 
+dl_type=0x0800, dl_src=, dl_dst=, in_port=, nw_src=, nw_dst=, nw_proto=17, actions=mod_nw_tos:4, mod_dl_src:, mod_dl_dst:, output:
+dl_type=0x0800, dl_src=, dl_dst=, nw_tos=236, in_port=, nw_src=, nw_dst=, nw_proto=17, actions=mod_nw_tos:240, mod_dl_src:, mod_dl_dst:, output:
+
+Switch2: 
+dl_type=0x0800, dl_src=, dl_dst=, nw_tos=16, in_port=, nw_src=, nw_dst=, nw_proto=17, actions=mod_nw_tos:20, mod_dl_src:, mod_dl_dst:, output:
+dl_type=0x0800, dl_src=, dl_dst=, nw_tos=220, in_port=, nw_src=, nw_dst=, nw_proto=17, actions=mod_nw_tos:224, mod_dl_src:, mod_dl_dst:, output:
+dl_type=0x0800, dl_src=, dl_dst=, nw_tos=20, in_port=, nw_src=, nw_dst=, nw_proto=17, actions=mod_nw_tos:24, mod_dl_src:, mod_dl_dst:, output:
+dl_type=0x0800, dl_src=, dl_dst=, nw_tos=216, in_port=, nw_src=, nw_dst=, nw_proto=17, actions=mod_nw_tos:220, mod_dl_src:, mod_dl_dst:, output:
+
+Switch3: 
+dl_type=0x0800, dl_src=, dl_dst=, nw_tos=4, in_port=, nw_src=, nw_dst=, nw_proto=17, actions=mod_nw_tos:8, mod_dl_src:, mod_dl_dst:, output:
+dl_type=0x0800, dl_src=, dl_dst=, nw_tos=232, in_port=, nw_src=, nw_dst=, nw_proto=17, actions=mod_nw_tos:236, mod_dl_src:, mod_dl_dst:, output:
+
+Switch4: 
+dl_type=0x0800, dl_src=, dl_dst=, nw_tos=8, in_port=, nw_src=, nw_dst=, nw_proto=17, actions=mod_nw_tos:12, mod_dl_src:, mod_dl_dst:, output:
+dl_type=0x0800, dl_src=, dl_dst=, nw_tos=228, in_port=, nw_src=, nw_dst=, nw_proto=17, actions=mod_nw_tos:232, mod_dl_src:, mod_dl_dst:, output:
+dl_type=0x0800, dl_src=, dl_dst=, nw_tos=12, in_port=, nw_src=, nw_dst=, nw_proto=17, actions=mod_nw_tos:16, mod_dl_src:, mod_dl_dst:, output:
+dl_type=0x0800, dl_src=, dl_dst=, nw_tos=224, in_port=, nw_src=, nw_dst=, nw_proto=17, actions=mod_nw_tos:228, mod_dl_src:, mod_dl_dst:, output:
+dl_type=0x0800, dl_src=, dl_dst=, nw_tos=24, in_port=, nw_src=, nw_dst=, nw_proto=17, actions=mod_nw_tos:28, mod_dl_src:, mod_dl_dst:, output:
+dl_type=0x0800, dl_src=, dl_dst=, nw_tos=212, in_port=, nw_src=, nw_dst=, nw_proto=17, actions=mod_nw_tos:216, mod_dl_src:, mod_dl_dst:, output:
+
+Switch5: 
+dl_type=0x0800, dl_src=, dl_dst=, nw_tos=28, in_port=, nw_src=, nw_dst=, nw_proto=17, actions=mod_nw_tos:32, mod_dl_src:, mod_dl_dst:, output:
+dl_type=0x0800, dl_src=, dl_dst=, in_port=, nw_src=, nw_dst=, nw_proto=17, actions=mod_nw_tos:212, mod_dl_src:, mod_dl_dst:, output:
+

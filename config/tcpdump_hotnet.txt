@@ -1,0 +1,4 @@
+M1 /usr/sbin/tcpdump -i M1-eth0 -w /home/openflow/pcap/hotnet/M1.pcap &
+M2 /usr/sbin/tcpdump -i M2-eth0 -w /home/openflow/pcap/hotnet/M2.pcap &
+M3 /usr/sbin/tcpdump -i M3-eth0 -w /home/openflow/pcap/hotnet/M3.pcap &
+M4 /usr/sbin/tcpdump -i M4-eth0 -w /home/openflow/pcap/hotnet/M4.pcap &
