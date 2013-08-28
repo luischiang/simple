@@ -5,9 +5,9 @@
 
 use strict;
 use POSIX;
-require "/home/openflow/advpro/simple/SIMPLE_ResourceManager/inputfileparse.pl";
-require "/home/openflow/advpro/simple/SIMPLE_ResourceManager/shortestpathutils.pl";
-require "/home/openflow/advpro/simple/SIMPLE_ResourceManager/policyutils.pl";
+require "inputfileparse.pl";
+require "shortestpathutils.pl";
+require "policyutils.pl";
 
 if ($#ARGV < 4)
 {
@@ -86,8 +86,8 @@ my @data = `cat $ARGV[2] | awk '{if(\$1=="<variable") print \$2}' | awk -F"=" '{
 my @data_value = `cat $ARGV[2] | awk '{if(\$1=="<variable") print \$5}' | awk -F"=" '{print \$2}'`;
 
 #LC
-print "data: @data\n";
-print "data val: @data_value\n";
+#print "data: @data\n";
+#print "data val: @data_value\n";
 
 # Contains the fraction of traffic on each physical middlebox sequence: Solution of optmization problem
 my %flow_table = ();
@@ -118,7 +118,8 @@ for($i=0; $i < @data; $i++)
 my $flow_key = 0;
 foreach $flow_key (sort keys %flow_table)
 {
-	print "flow_key: $flow_key \n";
+	#LC
+	#print "flow_key: $flow_key \n";
 	
 	if($flow_table{$flow_key} != 0)
 	{
@@ -204,7 +205,6 @@ foreach $class (sort {$a<=>$b} keys %ActiveSet)
 		$nw_src_rv = $nw_dst;
                 #print "$nw_dst \n";
 
-
 		my $k = 0;
 		
 		#print out "Class=$clGass,Sequence=$i,Segment=$segmentid;"; 
@@ -219,6 +219,8 @@ foreach $class (sort {$a<=>$b} keys %ActiveSet)
 		
 			if ($pathelements[$j] =~ /^S(\d+)/)
 			{
+				#LC
+				#print "Element:  $pathelements[$j] \r\n";
 				
 				$k = $k+1;
 					$nw_tos_int = $mod_nw_tos_int;
@@ -248,7 +250,7 @@ foreach $class (sort {$a<=>$b} keys %ActiveSet)
 					$output_rv = $SwitchPortInfo->{$sw_id}->{$node_id};
 				}
  
-				if ($pathelements[$j-1] =~ /^H(\d+)/)
+				if ($pathelements[$j-1] =~ /^T(\d+)/)
 				{
 					#my($trash, $id)  = split(//,$pathelements[$j-1]);
 					$node_id = $pathelements[$j-1];
@@ -292,7 +294,7 @@ foreach $class (sort {$a<=>$b} keys %ActiveSet)
 					$in_port_rv = $SwitchPortInfo->{$sw_id}->{$node_id};
 				}
 
-				if ($pathelements[$j+1] =~ /^H(\d+)/)
+				if ($pathelements[$j+1] =~ /^T(\d+)/)
 				{
 					#my($trash, $id)  = split(//,$pathelements[$j+1]);
 					$node_id = $pathelements[$j+1];
@@ -325,8 +327,8 @@ foreach $class (sort {$a<=>$b} keys %ActiveSet)
 				# Forward path rules
 				if($k == 1)
 				{
-					$rule = "dl_type=".$dl_type.", "."dl_src=".$dl_src.", "."dl_dst=".$dl_dst.", "."in_port=".$in_port.", " . 
-								"nw_src=".$nw_src.", "."nw_dst=".$nw_dst.", "."nw_proto=17".", " . 
+					$rule = "dl_type=".$dl_type.", "."in_port=".$in_port.", " . 
+								"nw_src=".$nw_src.", "."nw_dst=".$nw_dst.", ". 
 									"actions="."mod_nw_tos:".$mod_nw_tos_int.", "."mod_dl_src:".$mod_dl_src.", "."mod_dl_dst:".$mod_dl_dst.", " . 
 										"output:".$output;	
 					
@@ -334,21 +336,31 @@ foreach $class (sort {$a<=>$b} keys %ActiveSet)
 					$switch_table{$switch_id} = $switch_table{$switch_id}.$rule."\n";
 				
 				}	else {
-
-					$rule = "dl_type=".$dl_type.", "."dl_src=".$dl_src.", "."dl_dst=".$dl_dst.", "."nw_tos=".$nw_tos_int.", "."in_port=".$in_port.", "."nw_src=".$nw_src.", "."nw_dst=".$nw_dst.", "."nw_proto=17".", "."actions="."mod_nw_tos:".$mod_nw_tos_int.", "."mod_dl_src:".$mod_dl_src.", "."mod_dl_dst:".$mod_dl_dst.", "."output:".$output;     
-					#print "$rule \n";
-					$switch_table{$switch_id} = $switch_table{$switch_id}.$rule."\n";
+					
+					if($pathelements[$j+1] =~ /^T(\d+)/){
+						$rule = "dl_type=".$dl_type.", "."dl_src=".$dl_src.", "."dl_dst=".$dl_dst.", "."nw_tos=".$nw_tos_int.", "."in_port=".$in_port.", "."nw_src=".$nw_src.", "."nw_dst=".$nw_dst.", "."actions="."mod_nw_tos:".$mod_nw_tos_int.", "."mod_dl_src:".$mod_dl_src.", "."output:".$output;     
+						#print "$rule \n";
+						$switch_table{$switch_id} = $switch_table{$switch_id}.$rule."\n";
+					}else{
+						$rule = "dl_type=".$dl_type.", "."dl_src=".$dl_src.", "."dl_dst=".$dl_dst.", "."nw_tos=".$nw_tos_int.", "."in_port=".$in_port.", "."nw_src=".$nw_src.", "."nw_dst=".$nw_dst.", "."actions="."mod_nw_tos:".$mod_nw_tos_int.", "."mod_dl_src:".$mod_dl_src.", "."mod_dl_dst:".$mod_dl_dst.", "."output:".$output;     
+						#print "$rule \n";
+						$switch_table{$switch_id} = $switch_table{$switch_id}.$rule."\n";
+					}
 				}
 
 				# Reverse path rules
-				if($pathelements[$j+1] =~ /^H(\d+)/){
+				if($pathelements[$j+1] =~ /^T(\d+)/){
 					
-					$rule_rv = "dl_type=".$dl_type.", "."dl_src=".$dl_src_rv.", "."dl_dst=".$dl_dst_rv.", "."in_port=".$in_port_rv.", "."nw_src=".$nw_src_rv.", "."nw_dst=".$nw_dst_rv.", ". "nw_proto=17".", "."actions="."mod_nw_tos:".$mod_nw_tos_int_rev.", "."mod_dl_src:".$mod_dl_src_rv.", "."mod_dl_dst:".$mod_dl_dst_rv.", "."output:".$output_rv;
+					$rule_rv = "dl_type=".$dl_type.", "."in_port=".$in_port_rv.", "."nw_src=".$nw_src_rv.", "."nw_dst=".$nw_dst_rv.", "."actions="."mod_nw_tos:".$mod_nw_tos_int_rev.", "."mod_dl_src:".$mod_dl_src_rv.", "."mod_dl_dst:".$mod_dl_dst_rv.", "."output:".$output_rv;
 					$switch_table{$switch_id} = $switch_table{$switch_id}.$rule_rv."\n";
 					
+				}elsif($pathelements[$j-1] =~ /^T(\d+)/){
+				
+					$rule_rv = "dl_type=".$dl_type.", "."dl_src=".$dl_src_rv.", "."dl_dst=".$dl_dst_rv.", "."nw_tos=".$nw_tos_int_rev.", "."in_port=".$in_port_rv.", "."nw_src=".$nw_src_rv.", "."nw_dst=".$nw_dst_rv.", "."actions="."mod_nw_tos:".$mod_nw_tos_int_rev.", "."mod_dl_src:".$mod_dl_src_rv.", "."output:".$output_rv;
+					$switch_table{$switch_id} = $switch_table{$switch_id}.$rule_rv."\n";
 				}else{
-					
-					$rule_rv = "dl_type=".$dl_type.", "."dl_src=".$dl_src_rv.", "."dl_dst=".$dl_dst_rv.", "."nw_tos=".$nw_tos_int_rev.", "."in_port=".$in_port_rv.", "."nw_src=".$nw_src_rv.", "."nw_dst=".$nw_dst_rv.", ". "nw_proto=17".", "."actions="."mod_nw_tos:".$mod_nw_tos_int_rev.", "."mod_dl_src:".$mod_dl_src_rv.", "."mod_dl_dst:".$mod_dl_dst_rv.", "."output:".$output_rv;
+					#mod_dl_dst_rv
+					$rule_rv = "dl_type=".$dl_type.", "."dl_src=".$dl_src_rv.", "."dl_dst=".$dl_dst_rv.", "."nw_tos=".$nw_tos_int_rev.", "."in_port=".$in_port_rv.", "."nw_src=".$nw_src_rv.", "."nw_dst=".$nw_dst_rv.", "."actions="."mod_nw_tos:".$mod_nw_tos_int_rev.", "."mod_dl_src:".$mod_dl_src_rv.", "."mod_dl_dst:".$mod_dl_dst_rv.", "."output:".$output_rv;
 					$switch_table{$switch_id} = $switch_table{$switch_id}.$rule_rv."\n";
 				}
 

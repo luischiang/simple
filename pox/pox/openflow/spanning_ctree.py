@@ -36,6 +36,9 @@ from pox.lib.packet.arp import arp
 # William
 from of_parser import *
 
+#simple dir..
+simpledir = ""
+
 log = core.getLogger()
 ldict = dict()		# the mapping of swid -> swname
 rdict = dict()		# just in case we need the reverse of ldict
@@ -133,16 +136,16 @@ def _handle (event):
 	for swpt in core.openflow_discovery.swinfo:
 		switches.add(dpidToStr(swpt.dpid))
 
-	print " ** Printing Switches"
-	print switches
+	#print " ** Printing Switches"
+	#print switches
 
-	print " ** Printing Links"
-	for link in core.openflow_discovery.adjacency:
-		print "link detected: %s -> %s %i" % (dpidToStr(link.dpid1), dpidToStr(link.dpid2), link.port1)
+	#print " ** Printing Links"
+	#for link in core.openflow_discovery.adjacency:
+	#	print "link detected: %s -> %s %i" % (dpidToStr(link.dpid1), dpidToStr(link.dpid2), link.port1)
 
-	print " ** Printing Links By Lookup"
-	for link in core.openflow_discovery.adjacency:
-		print "link detected: %s -> %s %i" % (ldict[dpidToStr(link.dpid1)], ldict[dpidToStr(link.dpid2)], link.port1)
+	#print " ** Printing Links By Lookup"
+	#for link in core.openflow_discovery.adjacency:
+	#	print "link detected: %s -> %s %i" % (ldict[dpidToStr(link.dpid1)], ldict[dpidToStr(link.dpid2)], link.port1)
 
 def calculate_ruleset():
 	
@@ -152,7 +155,7 @@ def calculate_ruleset():
 	
 	print "Time out ocurrss, network topology discovered."
 	print "Begin Ruleset calculation"
-	
+
 	switches = set()
 	for swpt in core.openflow_discovery.swinfo:
 		switches.add(swpt.dpid)
@@ -164,17 +167,18 @@ def calculate_ruleset():
 			
 	# Step 1.. fill the files
 	print "Running Step 1.. Matching Network"
-	premapping = "/home/luis/advpro/simple/premapping/"
-	mappingdir = "/home/luis/advpro/simple/mapping/"
-	rsmanagerdir = "/home/luis/advpro/simple/SIMPLE_ResourceManager/"
-	rsResults = "/home/luis/advpro/simple/SIMPLE_ResourceManager/results/"
-	rulegen = "/home/luis/advpro/simple/Rule_Generator/"
+	premapping = simpledir + "/premapping/"
+	mappingdir = simpledir + "/mapping/"
+	rsmanagerdir = simpledir + "/SIMPLE_ResourceManager/"
+	rsResults = simpledir + "/SIMPLE_ResourceManager/results/"
+	rulegen = simpledir + "/Rule_Generator/"
 	ruleset = rulegen + "dynamic_ruleset.txt"
 	
 	SwPortDict = {}
 	
 	#Sw - Port, dictionary
-	f = open(premapping + "sw-ports.txt", 'r')
+	#f = open(premapping + "sw-ports.txt", 'r')
+	f = open("/tmp/" + "sw-ports.txt", 'r')
 	for line in f:
 		swid = line.split(",")[0]
 		swpt = line.split(",")[1]
@@ -195,25 +199,47 @@ def calculate_ruleset():
 	f.close()
 	
 	#Topology_Dynamic
-	p = open(premapping + "pre-topology.txt", "r")
+	
+	#total number of network elements
+	totalsw = 0
+	totalmb = 0
+	totalnt = 0
+	
+	fsw = open( premapping + "switches_table.txt", "r")
+	for line in fsw:
+		totalsw += 1
+	fsw.close()
+	
+	fho = open( premapping + "net-mb-info.txt", "r")
+	for line in fho:
+		if line.startswith("M"):
+			totalmb += 1
+		elif line.startswith("T"): 
+			totalnt += 1
+		
+	fho.close()
+	
+	
+	p = open( premapping + "net-mb-ports.txt", "r")		#open(premapping + "pre-topology.txt", "r")
 	f = open(mappingdir + "Topology_Dynamic", "w")
 	 
-	f.write(p.readline())	#header
-	f.write(p.readline())	#NUMSWITCHES
-	f.write(p.readline())	#NUMHOSTNODES
-	f.write(p.readline())	#NUMMBOXES
+	print >>f, "### first node has to of type S*"	#header
+	print >>f, "NUMSWITCHES=%d" % totalsw		#NUM_SWITCHES
+	print >>f, "NUMHOSTNODES=%d" % totalnt	#NUM_HOSTNODES or networks
+	print >>f, "NUMMBOXES=%d" % totalmb		#NUM_MBOXES
 	
 	for link in linklist:							#add the network information
 		print >>f, link[0] + " " + link[1] + " 1"
 	
 	for line in p:									#copy the second part of the file, the hosts and MB information
-		f.write(line)
+		lsplit = line.split(",")
+		print >>f,lsplit[0] + " " + lsplit[1] + " 1"
 		
 	p.close()
 	f.close()
 	
 	#Switches
-	r = open( premapping + "hosts-maps.txt", "r")
+	r = open( premapping + "net-mb-ports.txt", "r")
 	f = open( rulegen + "switches.txt","w")
 	
 	for line in r:									#copy the second part of the file, the hosts and MB information
@@ -245,7 +271,7 @@ def calculate_ruleset():
 		
 	f.close()
 	
-	os.system("cp " + premapping + "hosts.txt " + rulegen + "hosts.txt")
+	os.system("cp " + premapping + "net-mb-info.txt " + rulegen + "hosts.txt")
 	#os.system("cp " + premapping + "switches.txt " + rulegen + "switches.txt")
 	os.system("cp " + premapping + "switches_table.txt " + rulegen + "switches_table.txt")
 	
@@ -313,10 +339,12 @@ def configureRules (connection, lruleset):
 			msg.match.dl_dst = EthAddr(of_entry["dl_dst"])
 		#IP	 
 		if "nw_src" in of_entry.keys():
-			msg.match.nw_src = IPAddr(of_entry["nw_src"])
+			msg.match.nw_src = of_entry["nw_src"]
+			#msg.match.nw_src = IPAddr(of_entry["nw_src"])
 			
 		if "nw_dst" in of_entry.keys():
-			msg.match.nw_dst = IPAddr(of_entry["nw_dst"])
+			msg.match.nw_dst = of_entry["nw_dst"]
+			#msg.match.nw_dst = IPAddr(of_entry["nw_dst"])
 		
 		if "nw_tos" in of_entry.keys():
 			msg.match.nw_tos = int(of_entry["nw_tos"],10)
@@ -364,11 +392,11 @@ def configureRules (connection, lruleset):
 	#f.close()
 	print "Init rules configured, allow traffic for " + dpidToStr(connection.dpid)
 	
-def create_dictionary(predir):
+def create_dictionary(simple):
 	
 	global ldict
 	
-	swmaps = predir + "/" + "switches_table.txt"
+	swmaps = simple + "/premapping/" + "switches_table.txt"
 	
 	f = open(swmaps, 'r')
 	
@@ -381,7 +409,10 @@ def create_dictionary(predir):
 		rdict[swname] = swid
 	f.close()
 	
-def launch (predir):
+def launch (simple):
 	
-	create_dictionary(predir)
+	global simpledir
+	simpledir = simple
+	create_dictionary(simple)
+	os.system("rm /tmp/sw-ports.txt")
 	core.openflow_discovery.addListenerByName("LinkEvent", _handle)

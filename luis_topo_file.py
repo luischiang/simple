@@ -104,13 +104,15 @@ def addTrafficGenerator(net, name):
 def addSwitch(net, name):
 	return net.addSwitch(name)
 
-def TopologyHotnet(networkName, ruletype, edgefile, configfile):
+def TopologyHotnet(networkName, ruletype, edgefile):
 	"Create a network with multiple controllers."
 	 
 	net = Mininet( controller=RemoteController, switch=Switch, autoSetMacs = True)
 	print "*** Creating controllers"
 	c1 = net.addController('c1', port=6633, ip="127.0.0.1")
-
+	
+	wdir = os.getcwd()
+	
 	swobj_dict = {}
 	hobj_dict = {}
 	mbobj_dict = {}
@@ -209,59 +211,69 @@ def TopologyHotnet(networkName, ruletype, edgefile, configfile):
 		for intfname in mb.intfList():
 			print '%s %s %s %s' % (mb.name, mb.IP(intfname), mb.MAC(intfname), intfname)
 	
-	print "*** configuring hosts"
+	#LC: No neeeded when we use the Tg node
+	#print "*** configuring hosts"
 	
-	configlines = open(configfile, 'r')
+	#configlines = open(configfile, 'r')
 	
-	for host_name in tf.host_list:
-		ho = hobj_dict[host_name]
-		for x in range(1,5):
-			linecmd = configlines.readline()
-			ho.cmd(linecmd.strip(' \t\n\r'))
+	#for host_name in tf.host_list:
+	#	ho = hobj_dict[host_name]
+	#	for x in range(1,5):
+	#		linecmd = configlines.readline()
+	#		ho.cmd(linecmd.strip(' \t\n\r'))
 		#ho.cmd("iperf -s -u -p 5001 > /home/luis/finalmbox/pcap/%s/%s-iperfServer5001-%s.txt &" % (networkName, ho.name, ruletype) )
 		#ho.cmd("iperf -s -u -p 5002 > /home/luis/finalmbox/pcap/%s/%s-iperfServer5002-%s.txt &" % (networkName, ho.name, ruletype) )
 		#ho.cmd("tcpdump -i %s-eth0 -w /home/luis/finalmbox/pcap/%s/%s-%s.pcap &" % (ho.name, networkName, ho.name, ruletype) )
 		
-	configlines.close()
+	#configlines.close()
 	
 	print "*** configuring middleboxes"
-	 
+	
+	clickcf = "AddressInfo(my_self 0.0.0.0/32 MB-MAC);" + "\r\n"
+	clickcf += "in_device	::  FromDevice(\"MB-ETH\");" + "\r\n"
+	clickcf += "to_device	::  ToDevice(\"MB-ETH\");" + "\r\n"
+	clickcf += "in_device -> HostEtherFilter(my_self, DROP_OTHER true, DROP_OWN false) -> EtherMirror() -> Queue(10) -> to_device;" + "\r\n"
+	
 	for mb_name in tf.mb_list:
 		mb = mbobj_dict[mb_name]
-		mb.cmd("click /home/openflow/advpro/clickfiles/%s/%s-eth0.click &" % (networkName, mb.name))
-		#mb.cmd("tcpdump -i %s-eth0 -w /home/luis/pcap/%s/%s-%s.pcap &" % (mb.name, networkName, mb.name, ruletype) )
+		for intfname in mb.intfList():
+			#export to file
+			stMb = clickcf.replace("MB-MAC", mb.MAC(intfname))
+			stMb = stMb.replace("MB-ETH", '%s' % intfname)
+			fiMb = open('/tmp/%s.click' % intfname, 'w')
+			fiMb.write(stMb)
+			fiMb.close()
+			#execute click per each interface
+			mb.cmd("click /tmp/%s.click &" % intfname)
+			mb.cmd("tcpdump -i %s -w %s/pcap/%s-%s-%s.pcap &" % (intfname, wdir, networkName, ruletype, intfname))
 	
-	# hotnet2 250
-	# abilene 535
-	# geant 149
-	# enterprise 525
-	# print "*** Begin Collecting Link usage"
-	#os.system("sar -n DEV 1 250 > /home/luis/finalmbox/performance/%s/%s.txt &" % (networkName,ruletype ))
-
-	print "*** running iperf clients"
+	#print "*** running iperf clients"
 	 
-	for host_name in tf.host_list:
-		ho = hobj_dict[host_name]
+	#for host_name in tf.host_list:
+	#	ho = hobj_dict[host_name]
 		#ho.cmd("/home/luis/finalmbox/iperf/%s/%s.sh &" % (networkName, ho.name) )
 		#net.terms += makeTerm(ho)
 	
-	#os.system("sleep 255")
+	print "*** running traffic generator"
+	#Tg.cmd("sar -n DEV 1 250 > %s/pcap/%s/Tg-performance.txt &" % (wdir, networkName))	
+	#Tg.cmd("%s/gtool/start-Tg.sh &" % wdir)
 	
-	#print "*** Running CLI"
+	#print "%s/gtool/bittwistx -m 0 %s/gtool/mapping.txt %s/gtool/exp2.pcap > /tmp/tg-log.txt" % (wdir,wdir,wdir)
+	
+	##########
 	CLI( net )
 	 
 	print "*** Stopping network"
-	#cleanUpScreens()
 	net.stop()
 	
-	os.system("/home/openflow/advpro/terminate_experiments.sh")
+	os.system("./terminate_experiments.sh")
 
 if __name__ == '__main__':
 	setLogLevel( 'info' )  # for CLI output
 	
-	if len(sys.argv) != 5:
-		print "Usage: ./ThisProgram <NetworkName> <RuleSet Type> <Topology_xxx> <config_xxx.txt>"
-		print "ex: abilene optimal Topology_abilene config_abilene.txt" 
+	if len(sys.argv) != 4:
+		print "Usage: ./ThisProgram <NetworkName> <RuleSet Type> <Topology_xxx>"
+		print "ex: abilene optimal Topology_abilene" 
 		sys.exit(1)
 
-	TopologyHotnet(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
+	TopologyHotnet(sys.argv[1], sys.argv[2], sys.argv[3])

@@ -216,7 +216,7 @@ class Discovery (EventMixin):
 	self._dps.add(event.dpid)											# LC: keep track of the sw that install the flows
 	
 	# LC : printing port information
-	premapping = "/home/luis/advpro/simple/premapping/"
+	premapping = "/tmp/"
 	f = open(premapping + "sw-ports.txt", "a")
 	print " For ports:"
 	for p in event.ofp.ports:

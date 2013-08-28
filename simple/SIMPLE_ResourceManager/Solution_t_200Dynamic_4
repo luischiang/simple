@@ -21,7 +21,7 @@
    maxIntInfeas="0"
    maxPrimalInfeas="4.44089209850063e-16"
    maxX="2"
-   maxSlack="191"/>
+   maxSlack="193"/>
  <linearConstraints>
   <constraint name="Coverage.1" index="0" slack="0"/>
   <constraint name="ProcLoad.M3" index="1" slack="-4.44089209850063e-16"/>
@@ -32,11 +32,9 @@
   <constraint name="MaxProcLoadBound.M1" index="6" slack="0"/>
   <constraint name="MaxProcLoadBound.M2" index="7" slack="0"/>
   <constraint name="MaxProcLoadBound.M4" index="8" slack="0"/>
-  <constraint name="RuleLoad.S1" index="9" slack="191"/>
-  <constraint name="RuleLoad.S2" index="10" slack="188"/>
-  <constraint name="RuleLoad.S5" index="11" slack="191"/>
-  <constraint name="RuleLoad.S4" index="12" slack="191"/>
-  <constraint name="RuleLoad.S3" index="13" slack="191"/>
+  <constraint name="RuleLoad.S2" index="9" slack="192"/>
+  <constraint name="RuleLoad.S4" index="10" slack="193"/>
+  <constraint name="RuleLoad.S3" index="11" slack="193"/>
  </linearConstraints>
  <variables>
   <variable name="LoadFunction" index="0" value="2"/>
