@@ -128,6 +128,52 @@ def dumpNetConnections( file,  net ):
     nodes = net.controllers + net.switches + net.hosts
     dumpNodeConnections( file, nodes )
 	
+def getConfiguration(topologyName):
+	
+	netconfigFile = "config/netconfig_" +  topologyName
+	
+	tmpf = open(netconfigFile)
+	swlinks = tmpf.readlines()
+	tmpf.close()
+	
+	ifconfigFile = "config/ifconfig_" + topologyName
+	
+	tmpf = open(ifconfigFile)
+	swmacs = tmpf.readlines()
+	tmpf.close()
+	
+	swlinksPf = {}
+	for line in swlinks:
+		lineSt = line.strip()
+		if lineSt[0] == 'S':
+			parts = lineSt.split(" ")
+			
+			swlinksPf[parts[0]] = []
+			for conx in parts[3::]:
+				swlinksPf[parts[0]].append(conx.split(":"))
+	
+	conxFn = "config/conx_" + topologyName
+	conxFile = open(conxFn,"w")
+	for sw in swlinksPf:
+		i = 1
+		for conx in swlinksPf[sw]:
+			if conx[1].split("-")[0] == "Tg":
+				conxFile.write( "%s,%s,%i\n" % (conx[0].split("-")[0] , conx[0].split("-")[0].replace("S","T") , i ) )
+			elif (conx[1].split("-")[0]).startswith("M") :
+				conxFile.write( "%s,%s,%i\n" % (conx[0].split("-")[0] , conx[1].split("-")[0] ,  i ) )
+			i = i + 1
+	
+	conxFile.close()
+			
+	return 0
+
+def getMac(swmacs, ifname):
+	for line in swmacs:
+		if ifname in line:
+			parts = line.split(" ")
+			pos = [i for i,x in enumerate(parts) if x == "HWaddr"]
+			return parts[ pos[0] + 1 ]
+			
 def TopologyHotnet(networkName, ruletype, edgefile):
 	"Create a network with multiple controllers."
 	 
@@ -212,18 +258,51 @@ def TopologyHotnet(networkName, ruletype, edgefile):
 	 
 	for key in swobj_dict.keys():
 		sw = swobj_dict[key]
-		time.sleep(0.5)
+		#time.sleep(0.5)
 		sw.start([c1])
 
-	print "*** Sleep for reaching the controller (10 seconds)"
-	time.sleep(10)
+	#print "*** Sleep for reaching the controller (10 seconds)"
+	#time.sleep(10)
 	 
 	print "*** exporting config files"
 	
 	path = edgefile.split("/")[0]
 	edgename = edgefile.split("/")[1]
-
-	print "*** configuring middleboxes (click)"
+	
+	f = open("config/hosts_" + edgename, 'w')
+	
+	for host_name in tf.host_list:
+		ho = hobj_dict[host_name]
+		for intfname in ho.intfList():
+			print >>f, '%s %s %s %s' % (ho.name, ho.IP(intfname), ho.MAC(intfname), intfname)
+	
+	i = 1;
+	for intfname in Tg.intfList():
+			print >>f, 'T%d %s/16 %s' % (i, Tg.IP(intfname), intfname)
+			i += 1
+			
+	for mb_name in tf.mb_list:
+		mb = mbobj_dict[mb_name]
+		for intfname in mb.intfList():
+			print >>f, '%s %s %s %s' % (mb.name, mb.IP(intfname), mb.MAC(intfname), intfname)
+	
+	f.close()
+	
+	f = open("config/switches_" + edgename, 'w')
+	for sw_name in tf.sw_list:
+		sw = swobj_dict[sw_name]
+		print >>f, '%s,%s-%s-%s-%s-%s-%s' % (sw.name, sw.dpid[4:6],sw.dpid[6:8],sw.dpid[8:10],sw.dpid[10:12],sw.dpid[12:14],sw.dpid[14:16] )
+	f.close()
+	
+	f = open("config/netconfig_" + edgename, 'w') 
+	dumpNodeConnections(f, net) 
+	f.close()
+	
+	os.system("ifconfig -a | grep Ethernet > " + wdir + "/config/ifconfig_" + edgename)
+ 	
+	getConfiguration(edgename)
+ 	
+	#print "*** configuring middleboxes (click)"
 	
 	clickcf = "AddressInfo(my_self 0.0.0.0/32 MB-MAC);" + "\r\n"
 	clickcf += "in_device	::  FromDevice(\"MB-ETH\");" + "\r\n"
@@ -240,8 +319,8 @@ def TopologyHotnet(networkName, ruletype, edgefile):
 			fiMb.write(stMb)
 			fiMb.close()
 			#execute click per each interface
-			mb.cmd("click /tmp/%s.click &" % intfname)
-			mb.cmd("tcpdump -i %s -w %s/pcap/%s-%s-%s.pcap &" % (intfname, wdir, networkName, ruletype, intfname))
+			#mb.cmd("click /tmp/%s.click &" % intfname)
+			#mb.cmd("tcpdump -i %s -w %s/pcap/%s-%s-%s.pcap &" % (intfname, wdir, networkName, ruletype, intfname))
 	
 	#print "*** running iperf clients"
 	 
@@ -251,13 +330,14 @@ def TopologyHotnet(networkName, ruletype, edgefile):
 		#net.terms += makeTerm(ho)
 	
 	#print "*** running traffic generator"
+	
 	#Tg.cmd("sar -n DEV 1 250 > %s/pcap/%s/Tg-performance.txt &" % (wdir, networkName))	
 	#Tg.cmd("%s/gtool/startTg.sh" % wdir)
 	
 	##########
-	CLI( net ) 
+	#CLI( net ) 
 	
-	print "*** Stopping network"
+	#print "*** Stopping network"
 	net.stop()
 	
 	os.system("./terminate_experiments.sh")
