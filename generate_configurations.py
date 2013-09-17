@@ -295,7 +295,7 @@ def TopologyHotnet(networkName, ruletype, edgefile):
 	f.close()
 	
 	f = open("config/netconfig_" + edgename, 'w') 
-	dumpNodeConnections(f, net) 
+	dumpNetConnections(f, net) 
 	f.close()
 	
 	os.system("ifconfig -a | grep Ethernet > " + wdir + "/config/ifconfig_" + edgename)
